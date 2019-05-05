@@ -1,33 +1,46 @@
 <template>
-  <div id="app">
+  <div id='app'>
     <img src="./assets/logo.png">
-    <h1>\{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <h1>Could you...</h1>
+    <p>{{ prompt }}</p>
+    <div id='voter'>VOTER</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
+  name: 'Youdo',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      prompt: ''
+    }
+  }
+  methods () {
+    return {
+      getPrompt: function () {
+        <!-- make variables of all the word lists from the files -->
+        function csvJSON(csv){
+          var lines=csv.split("\n");
+          var result = [];
+          var headers=lines[0].split(",");
+          for(var i=1;i<lines.length;i++){
+              var obj = {};
+              var currentline=lines[i].split(",");
+              for(var j=0;j<headers.length;j++){
+                  obj[headers[j]] = currentline[j];
+              }
+              result.push(obj);
+          }
+          //return result; //JavaScript object
+          return JSON.stringify(result); //JSON
+        }
+        <!-- make the prompt out of the words and return the prompt -->
+      }
     }
   }
 }
+
+
 </script>
 
 <style{{#sass}} lang="scss"{{/sass}}>
